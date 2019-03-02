@@ -2,6 +2,24 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class hubModel extends CI_Model {
+	public function addKsrtc($credentials)
+	{
+		if($this->db->insert('ksrtc',$credentials))
+		{
+			return true;
+		} 
+		else 
+		{
+			return false;
+		}
+	}
+	public function getHubId($name)
+	{
+		$this->db->select('id');
+		$this->db->where('name' , $name);
+		$query=$this->db->get('hub');
+		return $query->row()->id;
+	}
 	public function createHub($credentials)
 	{
 		if($this->db->insert('hub',$credentials))

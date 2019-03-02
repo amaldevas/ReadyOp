@@ -2,6 +2,26 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class transporterController extends CI_Controller {
+	public function trip()
+	{
+		if($this->istransporterSession())
+		{
+			if($this->input->post())
+			{
+
+			}
+			else
+			{
+				$credentials['user']=$this->gettransporterDetails();
+				$credentials['hubList']=$this->transporterModel->getHubList();
+				$this->load->view('transporterView/trip', $credentials);
+			}
+		}
+		else
+		{
+			redirect('transporter/login');
+		}
+	}
 	public function listHub()
 	{
 		if($this->istransporterSession())

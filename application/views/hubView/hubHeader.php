@@ -67,10 +67,12 @@
                   <li class="nav child_menu"><a href="<?php echo base_url(); ?>index.php/hub/hub-list"><i class="fa fa-edit"></i>List Hub</a>
       
                   </li>
-                  <li><a href="general_elements.html"><i class="fa fa-desktop"></i> Add More </a>
+                  <li><a href="<?php echo base_url(); ?>index.php/hub/add-luggage"><i class="fa fa-desktop"></i> Add Luggage </a>
                    
                   </li>
-                  
+                  <li><a href="<?php echo base_url(); ?>index.php/hub/add-ksrtc"><i class="fa fa-desktop"></i> Add Ksrtc </a>
+                   
+                  </li>
                  
                 </ul>
               </div>
@@ -120,7 +122,7 @@
                       </a>
                     </li>
                     <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="<?php echo base_url(); ?>index.php/hub/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
               </ul>

@@ -2,6 +2,34 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class hubController extends CI_Controller {
+	public function addKsrtc()
+	{
+		if($this->isHubSession())
+		{
+			if($this->input->post())
+			{
+				$name=$this->input->post('to_hub');
+				$credentials['to_hub']=$this->hubModel->getHubId($name);
+				$credentials['from_hub']=$this->session->userdata('id');
+				$credentials['departure']=$this->input->post('departure');
+				$credentials['arrival']=$this->input->post('arrival');
+				$credentials['date_created']=date('Y-m-d H:i:s'); 
+				$data['result']=$this->hubModel->addKsrtc($credentials);
+				redirect('hub/dashboard');
+			}
+			else
+			{
+				$credentials['user']=$this->gethubDetails();
+				$credentials['hubList']=$this->transporterModel->getHubList();
+				$this->load->view('hubView/hubKsrtcAdd', $credentials);
+			}
+			
+		}
+		else
+		{
+			redirect('transporter/login');
+		}
+	}
 	public function listHub()
 	{
 		if($this->isHubSession())
