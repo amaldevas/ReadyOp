@@ -50,6 +50,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'welcome';
-$route['hub/login'] = 'AdminController/hubLogin';
+$route['hub/login'] = 'hubController/hubLogin';
+$route['hub/create'] = 'hubController/hubCreate';
+$route['traveller/login'] = 'travellerController/travellerLogin';
+$route['traveller/create'] = 'travellerController/travellerCreate';
+$route['transporter/login'] = 'transporterController/transporterLogin';
+$route['transporter/create'] = 'transporterController/transporterCreate';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
