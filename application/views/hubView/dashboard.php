@@ -51,12 +51,10 @@
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
-                          <th>Age</th>
-                          <th>Start date</th>
-                          <th>Salary</th>
+                          <th>Traveller</th>
+                          <th>Transporter</th>
+                          <th>Hub</th>
+                          <th>Date / Time</th> 
                         </tr>
                       </thead>
 
@@ -64,11 +62,9 @@
                       <tbody>
                         <tr>
                           <td>Tiger Nixon</td>
-                          <td>System Architect</td>
+                          <td>Marcus</td>
                           <td>Edinburgh</td>
-                          <td>61</td>
-                          <td>2011/04/25</td>
-                          <td>$320,800</td>
+                          <td>19:11 11/02/2015</td>
                         </tr>
                       </tbody>
                     </table>
