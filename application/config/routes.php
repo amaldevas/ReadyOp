@@ -50,9 +50,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'welcome';
+$route['hub/hub-list'] = 'hubController/listHub';
+$route['traveller/list-hub'] = 'travellerController/listHub';
+$route['transporter/list-hub'] = 'transporterController/listHub';
+$route['hub/logout'] = 'hubController/logout';
+$route['traveller/logout'] = 'travellerController/logout';
+$route['transporter/logout'] = 'transporterController/logout';
 $route['hub/login'] = 'hubController/hubLogin';
 $route['hub/create'] = 'hubController/hubCreate';
 $route['hub/dashboard'] = 'hubController/hubDashboard';
+$route['transporter/dashboard'] = 'transporterController/transporterDashboard';
+$route['traveller/dashboard'] = 'travellerController/travellerDashboard';
 $route['traveller/login'] = 'travellerController/travellerLogin';
 $route['traveller/create'] = 'travellerController/travellerCreate';
 $route['transporter/login'] = 'transporterController/transporterLogin';

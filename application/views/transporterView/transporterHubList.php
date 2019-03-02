@@ -26,24 +26,30 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                    
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>Traveller</th>
-                          <th>Transporter</th>
+                          <th>Id</th>
                           <th>Hub</th>
-                          <th>Date / Time</th> 
+                          <th>E-mail</th>
                         </tr>
                       </thead>
 
 
                       <tbody>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>Marcus</td>
-                          <td>Edinburgh</td>
-                          <td>19:11 11/02/2015</td>
-                        </tr>
+                        <?php
+                          if(!empty($hubList))
+                          {
+                            $i=0;
+                            for($i=0;$i<$hubList['count'];$i++)
+                            {
+                              echo "<tr><td>".$hubList['id'][$i]."</td>";
+                              echo "<td>".$hubList['name'][$i]."</td>";
+                              echo "<td>".$hubList['email'][$i]."</td></tr>";
+                            }
+                          }
+                        ?>
                       </tbody>
                     </table>
                   </div>

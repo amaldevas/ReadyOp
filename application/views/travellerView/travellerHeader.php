@@ -60,11 +60,11 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url(); ?>index.php/hub/dashboard">Dashboard</a></li>
+                      <li><a href="<?php echo base_url(); ?>index.php/traveller/dashboard">Dashboard</a></li>
                       
                     </ul>
                   </li>
-                  <li class="nav child_menu"><a href="<?php echo base_url(); ?>index.php/hub/hub-list"><i class="fa fa-edit"></i>List Hub</a>
+                  <li class="nav child_menu"><a href="<?php echo base_url(); ?>index.php/traveller/list-hub"><i class="fa fa-edit"></i> List Hub </a>
       
                   </li>
                   <li><a href="general_elements.html"><i class="fa fa-desktop"></i> Add More </a>
@@ -89,7 +89,7 @@
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="<?php echo base_url(); ?>index.php/hub/logout">
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="<?php echo base_url(); ?>index.php/traveller/logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -120,7 +120,7 @@
                       </a>
                     </li>
                     <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="<?php echo base_url(); ?>index.php/traveller/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
               </ul>

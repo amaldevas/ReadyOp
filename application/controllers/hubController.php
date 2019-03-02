@@ -2,6 +2,27 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class hubController extends CI_Controller {
+	public function listHub()
+	{
+		if($this->isHubSession())
+		{
+			$credentials['user']=$this->gethubDetails();
+			$credentials['hubList']=$this->transporterModel->getHubList();
+			$this->load->view('hubView/hubHubList', $credentials);
+		}
+		else
+		{
+			redirect('transporter/login');
+		}
+	}
+	public function logout()
+	{
+		$this->session->unset_userdata('email');
+		$this->session->unset_userdata('id');
+		$this->session->unset_userdata('name');
+		$this->session->unset_userdata('type');
+		redirect('hub/login');
+	}
 	public function getHubDetails()
 	{
 		$credentials['email']=$this->session->userdata('email');
@@ -25,7 +46,7 @@ class hubController extends CI_Controller {
 	}
 	public function isHubSession()
 	{
-		if($this->session->userdata('email') && $this->session->userdata('type')=='hub' && $this->session->userdata('id') && $this->session->userdata('type'))
+		if($this->session->userdata('email') && $this->session->userdata('type')=='hub' && $this->session->userdata('id'))
 		{
 			$credentials['email']=$this->session->userdata('email');
 			$credentials['name']=$this->session->userdata('name');
