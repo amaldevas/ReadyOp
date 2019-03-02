@@ -33,13 +33,13 @@
             <form method="POST" action="">
               <h1>Login Form</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" name="username" />
+                <input type="text" class="form-control" placeholder="Username" required="" name="email" />
               </div>
               <div>
                 <input type="password" class="form-control" placeholder="Password" required="" name="password" />
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html">Log in</a>
+                <input type="submit" name="" value="Log In">
                 <a class="reset_pass" href="#">Lost your password?</a>
               </div>
 
@@ -67,7 +67,7 @@
             <form method="POST" action="<?php echo base_url(); ?>index.php/hub/create">
               <h1>Create Account</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Name" required="" name="names" />
+                <input type="text" class="form-control" placeholder="Name" required="" name="name" />
               </div>
               <div>
                 <input type="email" class="form-control" placeholder="Email" required="" name="email" />
@@ -79,7 +79,7 @@
                 <input type="password" class="form-control" placeholder="Confirm Password" required="" name="cnfrm_password" />
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html">Submit</a>
+                <input type="submit" name="" class="btn btn-default submit" value="Submit">
               </div>
 
               <div class="clearfix"></div>
