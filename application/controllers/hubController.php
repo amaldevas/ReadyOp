@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class hubController extends CI_Controller {
+
 	public function confirmTrip()
 	{
 		$luggage_id=$this->uri->segment(2);
@@ -52,7 +53,7 @@ class hubController extends CI_Controller {
 		}
 		else
 		{
-			redirect('transporter/login');
+			redirect('hub/login');
 		}
 	}
 	public function emailSend($luggage_id,$email,$trip_id)
@@ -113,6 +114,19 @@ class hubController extends CI_Controller {
 				$this->load->view('hubView/hubKsrtcAdd', $credentials);
 			}
 			
+		}
+		else
+		{
+			redirect('transporter/login');
+		}
+	}
+	public function transfer()
+	{
+		if($this->isHubSession())
+		{
+			$credentials['user']=$this->gethubDetails();
+			$credentials=$this->hubModel->getHubTransfer($this->session->userdata('id'));
+			$this->load->view('hubView/hubHubList', $credentials);
 		}
 		else
 		{

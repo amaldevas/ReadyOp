@@ -53,6 +53,7 @@ $route['default_controller'] = 'welcome';
 $route['transporter/trip'] = 'transporterController/trip';
 $route['hub/add-ksrtc'] = 'hubController/addKsrtc';
 $route['hub/hub-list'] = 'hubController/listHub';
+$route['hub/transfer'] = 'hubController/transfer';
 $route['traveller/list-hub'] = 'travellerController/listHub';
 $route['transporter/hub-list'] = 'transporterController/listHub';
 $route['hub/logout'] = 'hubController/logout';

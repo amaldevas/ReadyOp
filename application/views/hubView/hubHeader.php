@@ -73,7 +73,12 @@
                   <li><a href="<?php echo base_url(); ?>index.php/hub/add-ksrtc"><i class="fa fa-desktop"></i> Add Ksrtc </a>
                    
                   </li>
-                 
+                 <li class="nav child_menu"><a href="<?php echo base_url(); ?>index.php/hub/transfer"><i class="fa fa-edit"></i>Transfer</a>
+      
+                  </li>
+                  <li class="nav child_menu"><a href="<?php echo base_url(); ?>index.php/hub/recieve"><i class="fa fa-edit"></i>Recieve</a>
+      
+                  </li>
                 </ul>
               </div>
 
