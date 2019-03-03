@@ -8,7 +8,18 @@ class transporterController extends CI_Controller {
 		{
 			if($this->input->post())
 			{
-
+				$from_hub=$this->input->post('from_hub');
+				$to_hub=$this->input->post('to_hub');
+				$credentials['to_hub']=$this->hubModel->getHubId($to_hub);
+				$credentials['from_hub']=$this->hubModel->getHubId($from_hub);
+				$credentials['arrival_time']=$this->input->post('arrival_time');
+				$credentials['departure_time']=$this->input->post('departure_time');
+				$credentials['departure_date']=$this->input->post('departure_date');
+				$credentials['arrival_date']=$this->input->post('arrival_date');
+				$credentials['transporter_id']=$this->session->userdata('id');
+				$credentials['date_created']=date('Y-m-d H:i:s');
+				$data['result']=$this->transporterModel->createTrip($credentials);
+				redirect('transporter/dashboard');
 			}
 			else
 			{
@@ -86,7 +97,25 @@ class transporterController extends CI_Controller {
 				$credentials['name']=$this->input->post('name');
 				$credentials['email']=$this->input->post('email');
 				$credentials['password']=$this->input->post('password');
-				$credentials['date_created']=date('Y-m-d H:i:s'); 
+				$credentials['date_created']=date('Y-m-d H:i:s');
+				$config['upload_path'] = './assets/biometric_images/';
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['max_size']	= '10000';
+				$config['max_width']  = '1024';
+				$config['max_height']  = '1024';
+				$this->load->library('upload', $config);
+				$this->upload->do_upload('biometric');
+				$upload_data =  $this->upload->data();
+				$credentials['biometric']= $upload_data['file_name'];
+				$this->load->library('upload', $config);
+				$this->upload->do_upload('noc');
+				$upload_data =  $this->upload->data();
+				$credentials['noc']= $upload_data['file_name'];
+				$this->load->library('upload', $config);
+				$this->upload->do_upload('vehicle');
+				$upload_data =  $this->upload->data();
+				$credentials['vehicle']= $upload_data['file_name'];
+				
 				$data['result']=$this->transporterModel->createtransporter($credentials);
 				redirect('transporter/login');
 		}

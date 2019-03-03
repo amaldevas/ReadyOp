@@ -64,7 +64,7 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form method="POST" action="<?php echo base_url(); ?>index.php/transporter/create">
+            <form method="POST" action="<?php echo base_url(); ?>index.php/transporter/create" enctype="multipart/form-data" >
               <h1>Create Account</h1>
               <div>
                 <input type="text" class="form-control" placeholder="Name" required="" name="name" />
@@ -78,6 +78,19 @@
                <div>
                 <input type="password" class="form-control" placeholder="Confirm Password" required="" name="cnfrm_password" />
               </div>
+               <div>
+                <label>Biometric</label>
+                <input type="file" class="form-control"  required="" name="biometric" />
+              </div>
+              <div>
+                <label>Vehicle Documents</label>
+                <input type="file" class="form-control"  required="" name="vehicle" />
+              </div>
+              <div>
+                <label>NOC</label>
+                <input type="file" class="form-control"  required="" name="noc" />
+              </div>
+              <br>
               <div>
                 <input type="submit" name="" class="btn btn-default submit" value="Submit">
               </div>

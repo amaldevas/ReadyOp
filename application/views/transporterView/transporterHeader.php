@@ -71,6 +71,9 @@
                   <li class="nav child_menu"><a href="<?php echo base_url(); ?>index.php/transporter/hub-list"><i class="fa fa-edit"></i> List Hub </a>
       
                   </li>
+                  <li class="nav child_menu"><a href="<?php echo base_url(); ?>index.php/transporter/trip"><i class="fa fa-edit"></i>Trip</a>
+      
+                  </li>
                   <li><a href="general_elements.html"><i class="fa fa-desktop"></i> Add More </a>
                    
                   </li>

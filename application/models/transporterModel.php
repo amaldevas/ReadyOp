@@ -24,6 +24,17 @@ class transporterModel extends CI_Model {
 			}
 			return NULL;
 	}
+	public function createTrip($credentials)
+	{
+		if($this->db->insert('trip',$credentials))
+		{
+			return true;
+		} 
+		else 
+		{
+			return false;
+		}
+	}
 	public function createtransporter($credentials)
 	{
 		if($this->db->insert('transporter',$credentials))

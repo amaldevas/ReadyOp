@@ -2,6 +2,95 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class hubController extends CI_Controller {
+	public function confirmTrip()
+	{
+		$luggage_id=$this->uri->segment(2);
+		$trip_id=$this->uri->segment(3);
+		if($this->hubModel->tripNot($luggage_id))
+		{
+			$this->hubModel->getTrip($trip_id,$luggage_id);
+			var_dump("TRIP CONFIRMED");
+		}
+		else
+		{
+			var_dump("TRIP NOT CONFIRMED");
+		}
+	}
+	public function addLuggage()
+	{
+		if($this->isHubSession())
+		{
+			if($this->input->post())
+			{
+				$from_hub=$this->input->post('from_hub');
+				$to_hub=$this->input->post('to_hub');
+				$credentials['to_hub']=$this->hubModel->getHubId($to_hub);
+				$credentials['from_hub']=$this->hubModel->getHubId($from_hub);
+				$credentials['user_id']=$this->input->post('user_id');
+				$credentials['arrival_time_user']=$this->input->post('arrival_time');
+				$credentials['arrival_date_user']=$this->input->post('arrival_date');
+				$credentials['date_created']=date('Y-m-d H:i:s');
+				$credentials['received']=1;
+				$credentials['received_date']=date('Y-m-d');
+				$credentials['received_time']=date('H:i:s');
+				$credentials1=$this->hubModel->getKsrtc($credentials['from_hub'],$credentials['to_hub']);
+				$credentials2 = array_merge($credentials, $credentials1);
+				$id=$this->hubModel->createLuggage($credentials2);
+				$credentials3=$this->hubModel->getTransporter($credentials2['arrival_date_user'],$credentials2['arrival_time_user'],$credentials2['to_hub'],$credentials2['from_hub']);
+				for($i=0;$i<$credentials3['count'];$i++)
+				{
+					$this->emailSend($id,$credentials3['email'][$i],$credentials3['trip_id'][$i]);
+				}
+				redirect('hub/dashboard');
+			}
+			else
+			{
+				$credentials['user']=$this->getHubDetails();
+				$credentials['hubList']=$this->transporterModel->getHubList();
+				$this->load->view('hubView/addLuggage', $credentials);
+			}
+		}
+		else
+		{
+			redirect('transporter/login');
+		}
+	}
+	public function emailSend($luggage_id,$email,$trip_id)
+	{
+		if($this->input->post()){
+			$toEmail=$email;
+			$message="To Confirm the trip click the link : http://localhost/Luggo/index.php/trip-confirm/".$luggage_id."/".$trip_id;
+			$this->load->library('email');
+			$config['protocol'] = 'smtp';
+            $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+            $config['smtp_port'] = '465';
+            $config['smtp_user'] = 'luggolight@gmail.com';
+            $config['smtp_pass'] = "luggodevi";
+
+            $config['mailtype'] = 'html';
+            $config['charset'] = 'utf-8';
+            $config['wordwrap'] = TRUE;
+            $config['newline'] = "\r\n"; 
+            $this->email->initialize($config);  
+
+			$this->email->from('luggolight@gmail.com', 'Luggo');
+			$this->email->to($toEmail);
+			$this->email->cc('');
+			$this->email->bcc('');
+			$this->email->subject('Confirm Trip');
+			$this->email->message($message);
+			if($this->email->send()){
+				
+			}else{
+				$data['message']="To Confirm the trip click the link : http://localhost/Luggo/index.php/trip-confirm/".$luggage_id."/".$trip_id;
+				
+			}
+
+		}else{
+			
+		}
+
+	}
 	public function addKsrtc()
 	{
 		if($this->isHubSession())
