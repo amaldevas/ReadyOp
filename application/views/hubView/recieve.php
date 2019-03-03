@@ -42,13 +42,13 @@
 
                       <tbody>
                         <?php 
-                          if(!empty($count))
-                          {
-                            for($i=0;$i<$count;$i++)
+                            if(!empty($count))
                             {
-                              echo "<tr><td>".$luggage_id[$i]."</td><td>".$traveller_name[$i]."</td><td>".$transporter_name[$i]."</td><td>".$hub_name[$i]."</td><td>".$arrival_date[$i]."</td><td>".$arrival_time[$i]."</td><td><a href='".base_url()."/index.php/transfer/".$luggage_id[$i]."'class='btn btn-primary'>Transfered</a></td></tr>";
+                              for($i=0;$i<$count;$i++)
+                            {
+                              echo "<tr><td>".$luggage_id[$i]."</td><td>".$traveller_name[$i]."</td><td>".$transporter_name[$i]."</td><td>".$hub_name[$i]."</td><td>".$arrival_date[$i]."</td><td>".$arrival_time[$i]."</td><td><a href='".base_url()."/index.php/transfer/".$luggage_id[$i]."'class='btn btn-primary'>Receieved</a></td></tr>";
                             }
-                          }
+                            }
                             
                          ?>
                       </tbody>

@@ -56,6 +56,33 @@ class hubController extends CI_Controller {
 			redirect('hub/login');
 		}
 	}
+	public function emailSendTransfer($credentials)
+	{
+		
+			$toEmail=$credentials['email'];
+			$message="Hello ".$credentials['name'].", \nThe transporter has sucessfully picked up your luggage on ".$credentials['send_date']." at ".$credentials['send_time']." to your destinaton hub.Your luggage is expected to reach on ".$credentials['arrival_date']." at ".$credentials['arrival_time'];
+			$this->load->library('email');
+			$config['protocol'] = 'smtp';
+            $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+            $config['smtp_port'] = '465';
+            $config['smtp_user'] = 'luggolight@gmail.com';
+            $config['smtp_pass'] = "luggodevi";
+
+            $config['mailtype'] = 'html';
+            $config['charset'] = 'utf-8';
+            $config['wordwrap'] = TRUE;
+            $config['newline'] = "\r\n"; 
+            $this->email->initialize($config);  
+
+			$this->email->from('luggolight@gmail.com', 'Luggo');
+			$this->email->to($toEmail);
+			$this->email->cc('');
+			$this->email->bcc('');
+			$this->email->subject('Confirm Trip');
+			$this->email->message($message);
+			$this->email->send();
+
+	}
 	public function emailSend($luggage_id,$email,$trip_id)
 	{
 		if($this->input->post()){
@@ -117,7 +144,34 @@ class hubController extends CI_Controller {
 		}
 		else
 		{
-			redirect('transporter/login');
+			redirect('hub/login');
+		}
+	}
+	public function transferDone()
+	{
+		if($this->isHubSession())
+		{
+			$luggage_id=$this->uri->segment(2);
+			$credentials=$this->hubModel->getHubTransferDone($luggage_id);
+			$this->emailSendTransfer($credentials);
+			redirect('hub/transfer');
+		}
+		else
+		{
+			redirect('hub/login');
+		}
+	}
+	public function receive()
+	{
+		if($this->isHubSession())
+		{
+			$credentials['user']=$this->gethubDetails();
+			$credentials=$this->hubModel->getHubReceive($this->session->userdata('id'));
+			$this->load->view('hubView/recieve', $credentials);
+		}
+		else
+		{
+			redirect('hub/login');
 		}
 	}
 	public function transfer()
@@ -126,11 +180,11 @@ class hubController extends CI_Controller {
 		{
 			$credentials['user']=$this->gethubDetails();
 			$credentials=$this->hubModel->getHubTransfer($this->session->userdata('id'));
-			$this->load->view('hubView/hubHubList', $credentials);
+			$this->load->view('hubView/transfer', $credentials);
 		}
 		else
 		{
-			redirect('transporter/login');
+			redirect('hub/login');
 		}
 	}
 	public function listHub()
@@ -143,7 +197,7 @@ class hubController extends CI_Controller {
 		}
 		else
 		{
-			redirect('transporter/login');
+			redirect('hub/login');
 		}
 	}
 	public function logout()

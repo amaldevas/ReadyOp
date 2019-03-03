@@ -51,6 +51,83 @@ class hubModel extends CI_Model {
 			return false;
 		}
 	}
+	public function getHubName($id)
+	{
+		$this->db->select('name');
+		$this->db->where('id' , $id);
+		$query=$this->db->get('hub');
+		return $query->row()->name;
+	}
+	public function getHubReceive($id)
+	{
+		$this->db->select('luggage.id,
+							transporter.name as tname,
+							traveller.name,
+							luggage.to_hub,
+							hub.name as hname,
+							luggage.arrival_date,
+							luggage.arrival_time
+							');
+		$this->db->from('luggage');
+		$this->db->join('transporter','transporter.id = luggage.transporter_id');
+		$this->db->join('traveller','traveller.id = luggage.user_id');
+		$this->db->join('hub','hub.id = luggage.to_hub');
+		$this->db->where('luggage.to_hub',$id);
+		$this->db->order_by("luggage.arrival_date", "dsc");
+		$query=$this->db->get();
+		if(!empty($query->result()))
+		{
+			$i=0;
+			foreach ($query->result() as $row)
+				{
+        			$credentials2['luggage_id'][$i]=$row->id;
+        			$credentials2['transporter_name'][$i]=$row->tname;
+        			$credentials2['traveller_name'][$i]=$row->name;
+        			$credentials2['hub_name'][$i]=$this->getHubName($row->to_hub);
+        			$credentials2['arrival_date'][$i]=$row->arrival_date;
+        			$credentials2['arrival_time'][$i]=$row->arrival_time;
+        			$i++;
+				}
+				$credentials2['count']=$i;
+				return $credentials2;
+		}
+		return NULL;
+	}
+	public function getHubTransfer($id)
+	{
+		$this->db->select('luggage.id,
+							transporter.name as tname,
+							traveller.name,
+							luggage.to_hub,
+							hub.name as hname,
+							luggage.arrival_date,
+							luggage.arrival_time
+							');
+		$this->db->from('luggage');
+		$this->db->join('transporter','transporter.id = luggage.transporter_id');
+		$this->db->join('traveller','traveller.id = luggage.user_id');
+		$this->db->join('hub','hub.id = luggage.to_hub');
+		$this->db->where('luggage.from_hub',$id);
+		$this->db->order_by("luggage.arrival_date", "dsc");
+		$query=$this->db->get();
+		if(!empty($query->result()))
+		{
+			$i=0;
+			foreach ($query->result() as $row)
+				{
+        			$credentials2['luggage_id'][$i]=$row->id;
+        			$credentials2['transporter_name'][$i]=$row->tname;
+        			$credentials2['traveller_name'][$i]=$row->name;
+        			$credentials2['hub_name'][$i]=$this->getHubName($row->to_hub);
+        			$credentials2['arrival_date'][$i]=$row->arrival_date;
+        			$credentials2['arrival_time'][$i]=$row->arrival_time;
+        			$i++;
+				}
+				$credentials2['count']=$i;
+				return $credentials2;
+		}
+		return NULL;
+	}
 	public function getTransporter($date,$time,$to,$from)
 	{
 		$this->db->select('trip.id,transporter.email');
@@ -117,6 +194,66 @@ class hubModel extends CI_Model {
 					$this->db->update('luggage', $data);
 				}
 		}
+		
+	}
+	public function getHubNames($id)
+	{
+		$this->db->select('name');
+		$this->db->where('id' , $id);
+		$query=$this->db->get('traveller');
+		foreach ($query->result() as $row)
+				{
+					return $row->name;
+				}
+	}
+	public function getHubEmail($id)
+	{
+		$this->db->select('email');
+		$this->db->where('id' , $id);
+		$query=$this->db->get('traveller');
+		foreach ($query->result() as $row)
+				{
+					return $row->email;
+				}
+	}
+	public function getHubUserId($luggage_id)
+	{
+		$this->db->select('user_id');
+		$this->db->where('id' , $luggage_id);
+		$query=$this->db->get('luggage');
+		foreach ($query->result() as $row)
+				{
+					return $row->user_id;
+				}
+	}
+	public function getHubTransferDone($luggage_id)
+	{
+		$user_id=$this->getHubUserId($luggage_id);
+        			$data = array(
+        'send' => '1',
+        'send_date' => date('Y-m-d'),
+        'send_time' => date('H:i:s')
+			);
+        			$this->db->where('id', $luggage_id);
+					$this->db->update('luggage', $data);
+				$this->db->select('*');
+				$this->db->where('id' , $luggage_id);
+				$query=$this->db->get('luggage');
+				if(!empty($query))
+			{
+				foreach ($query->result() as $row)
+				{
+        			$credentials2['id']=$row->id;
+
+        			$credentials2['name']=$this->getHubNames($user_id);
+        			$credentials2['email']=$this->getHubEmail($user_id);;
+        			$credentials2['send_time']=$row->send_time;
+        			$credentials2['send_date']=$row->send_date;
+        			$credentials2['arrival_time']=$row->arrival_time;
+        			$credentials2['arrival_date']=$row->arrival_date;
+				}
+				return $credentials2;
+			}
 		
 	}
 	public function getHubId($name)
